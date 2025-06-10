@@ -1,0 +1,136 @@
+{
+  "exportFormatVersion": 2,
+  "exportTime": "2025-03-04 11:44:30",
+  "containerVersion": {
+    "path": "accounts/6271671119/containers/207742702/versions/6",
+    "accountId": "6271671119",
+    "containerId": "207742702",
+    "containerVersionId": "6",
+    "container": {
+      "path": "accounts/6271671119/containers/207742702",
+      "accountId": "6271671119",
+      "containerId": "207742702",
+      "name": "Android Test",
+      "publicId": "GTM-W74VHNBX",
+      "usageContext": [
+        "ANDROID_SDK_5"
+      ],
+      "fingerprint": "1741082470865",
+      "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6271671119/containers/207742702/workspaces?apiLink=container",
+      "features": {
+        "supportUserPermissions": true,
+        "supportEnvironments": true,
+        "supportWorkspaces": true,
+        "supportGtagConfigs": false,
+        "supportBuiltInVariables": true,
+        "supportClients": false,
+        "supportFolders": true,
+        "supportTags": true,
+        "supportTemplates": true,
+        "supportTriggers": true,
+        "supportVariables": true,
+        "supportVersions": true,
+        "supportZones": true,
+        "supportTransformations": false
+      },
+      "tagIds": [
+        "GTM-W74VHNBX"
+      ]
+    },
+    "tag": [
+      {
+        "accountId": "6271671119",
+        "containerId": "207742702",
+        "tagId": "8",
+        "name": "Google Analytics (Firebase)-11",
+        "type": "fm",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "mergeEventParameters",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "action",
+            "value": "measure"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "{{full_text}}"
+          }
+        ],
+        "fingerprint": "1741087648942",
+        "firingTriggerId": [
+          "2147479556"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT",
+        "consentSettings": {
+          "consentStatus": "NOT_SET"
+        }
+      }
+    ],
+    "variable": [
+      {
+        "accountId": "6271671119",
+        "containerId": "207742702",
+        "variableId": "7",
+        "name": "full_text",
+        "type": "md",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventType",
+            "value": "CUSTOM"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "key",
+            "value": "full_text"
+          }
+        ],
+        "fingerprint": "1741087411892"
+      }
+    ],
+    "builtInVariable": [
+      {
+        "accountId": "6271671119",
+        "containerId": "207742702",
+        "type": "APP_ID",
+        "name": "App ID"
+      },
+      {
+        "accountId": "6271671119",
+        "containerId": "207742702",
+        "type": "APP_NAME",
+        "name": "App Name"
+      },
+      {
+        "accountId": "6271671119",
+        "containerId": "207742702",
+        "type": "APP_VERSION_CODE",
+        "name": "App Version Code"
+      },
+      {
+        "accountId": "6271671119",
+        "containerId": "207742702",
+        "type": "APP_VERSION_NAME",
+        "name": "App Version Name"
+      },
+      {
+        "accountId": "6271671119",
+        "containerId": "207742702",
+        "type": "EVENT_NAME",
+        "name": "Event Name"
+      }
+    ],
+    "fingerprint": "1741087684421",
+    "tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/6271671119/containers/207742702/versions/6?apiLink=version"
+  }
+}

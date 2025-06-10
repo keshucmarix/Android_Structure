@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">MVVM-Architecture</string>
+    <string name="hint_enter_your_email">Enter your email</string>
+    <string name="hint_enter_password">Enter password</string>
+    <string name="button_login">Login</string>
+    <string name="no_data_found">No Data Found</string>
+    <string name="button_signup">SignUp</string>
+    <string name="validation_empty_f_name">Enter first name</string>
+    <string name="validation_empty_l_name">Enter last name</string>
+    <string name="validation_empty_email">Enter email</string>
+    <string name="validation_valid_email">Enter valid email</string>
+    <string name="validation_empty_mobile">Enter mobile</string>
+    <string name="validation_valid_mobile">Enter valid mobile</string>
+    <string name="validation_empty_password">Enter password</string>
+    <string name="validation_empty_confirm_password">Enter confirm password</string>
+    <string name="title_register">Sign Up</string>
+    <string name="hint_enter_your_f_name">Enter first name</string>
+    <string name="hint_enter_your_l_name">Enter last name</string>
+    <string name="hint_enter_your_mobile">Enter mobile</string>
+    <string name="hint_enter_confirm_password">Enter confirm password</string>
+    <!--
+        <string name="validation_empty_confirm_password">Enter confirm password</string>
+    -->
+
+    <string name="new_version_available">New version available</string>
+    <string name="please_update_the_app_to_see_new_features">Please update the app to see new features.</string>
+    <string name="update">Update</string>
+</resources>

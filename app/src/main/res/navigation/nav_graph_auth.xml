@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/login">
+
+    <fragment
+        android:id="@+id/login"
+        android:name="com.app.ui.auth.fragment.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/auth_fragment_login">
+
+        <action
+            android:id="@+id/fragmentSignUp"
+            app:destination="@id/signUp">
+            <argument
+                android:name="exampleArg"
+                app:argType="string" />
+            <argument
+                android:name="modelClass"
+                app:argType="com.app.data.model.TestModel" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUp"
+        android:name="com.app.ui.auth.fragment.SignUpFragment"
+        android:label="Sign Up"
+        tools:layout="@layout/auth_fragment_sign_up" />
+
+
+</navigation>
