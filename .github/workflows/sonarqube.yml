@@ -1,0 +1,37 @@
+name: SonarQube Analysis
+
+on:
+  push:
+    branches:
+      - '**'  # Triggers on all branches
+
+jobs:
+  sonarqube:
+    name: SonarQube Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'  # Use your project's Java version
+
+      - name: Grant execute permission to Gradlew
+        run: chmod +x ./gradlew
+
+      - name: Run SonarQube analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          ./gradlew sonarqube \
+            -Dsonar.projectKey=Android-Architecture \
+            -Dsonar.projectName=Android-Architecture \
+            -Dsonar.host.url=http://localhost/:9000 \
+            -Dsonar.login=$SONAR_TOKEN \
+            -Dsonar.sources=app/src/main/java \
+            -Dsonar.java.binaries=app/build \
+            -Dsonar.sourceEncoding=UTF-8
