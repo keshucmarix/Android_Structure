@@ -59,7 +59,7 @@ class LoginFragment : BaseFragment<AuthFragmentLoginBinding>(), View.OnClickList
 
 
     private fun apiCallGetStoreTrending() {
-        //Test
+        //Test hello
         if (pageCount == 1) {
             showLoader()
         }
