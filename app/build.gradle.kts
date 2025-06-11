@@ -4,8 +4,8 @@ plugins {
     alias(libs.plugins.kapt)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.hilt)
-    alias(libs.plugins.firebase.crashlytics)
-    alias(libs.plugins.google.services)
+  //  alias(libs.plugins.firebase.crashlytics)
+   // alias(libs.plugins.google.services)
     alias(libs.plugins.sonarqube)
 }
 
@@ -127,9 +127,9 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.glide)
     implementation(libs.google.android.material)
-    implementation(libs.firebase.crashlytics)
-    implementation(libs.firebase.config)
-    implementation(libs.firebase.analytics)
+//    implementation(libs.firebase.crashlytics)
+//    implementation(libs.firebase.config)
+//    implementation(libs.firebase.analytics)
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
 }
