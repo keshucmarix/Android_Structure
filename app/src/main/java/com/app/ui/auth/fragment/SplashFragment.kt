@@ -11,6 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
 
+
     override fun createViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
