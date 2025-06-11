@@ -30,7 +30,7 @@ jobs:
           ./gradlew sonarqube \
             -Dsonar.projectKey=Android-Architecture \
             -Dsonar.projectName=Android-Architecture \
-            -Dsonar.host.url=http://localhost/:9000 \
+            -Dsonar.host.url=http://10.0.0.201:9000 \
             -Dsonar.login=$SONAR_TOKEN \
             -Dsonar.sources=app/src/main/java \
             -Dsonar.java.binaries=app/build \
