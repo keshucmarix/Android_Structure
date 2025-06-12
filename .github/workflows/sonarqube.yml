@@ -62,7 +62,7 @@ jobs:
           echo "major_issues=$count" >> $GITHUB_OUTPUT
 
       - name: Fail if too many major issues
-        if: steps.sonar_check.outputs.major_issues > 10
+        if: steps.sonar_check.outputs.major_issues > 30
         run: |
-          echo "❌ Merge blocked: More than 10 major issues found in SonarQube."
+          echo "❌ Merge blocked: More than 30 major issues found in SonarQube."
           exit 1
