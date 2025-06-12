@@ -52,7 +52,7 @@ android {
         }
 
         getByName("release") {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -101,7 +101,7 @@ android {
             property("sonar.projectKey", "Android-Architecture")
             property("sonar.projectName", "Android-Architecture")
             property("sonar.host.url", "http://203.109.113.153:9000")
-            property("sonar.login", System.getenv("SONAR_TOKEN"))
+            property("sonar.login", "sqp_5fdd6887be37a7fbc3ed677377a64e65fa85576b")
             property("sonar.sources", listOf("src/main/java")) // ✅ Must be a list, not a String!
             property("sonar.sourceEncoding", "UTF-8")
             property("sonar.java.binaries", listOf("build")) // Optional but helps with analysis
