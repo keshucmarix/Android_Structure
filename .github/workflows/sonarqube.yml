@@ -27,5 +27,12 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ./gradlew sonarqube 
+          ./gradlew sonar \
+          -Dsonar.projectKey=Android-Architecture \
+          -Dsonar.projectName=Android-Architecture \
+          -Dsonar.host.url=http://203.109.113.153:9000 \
+          -Dsonar.login=$SONAR_TOKEN \
+          -Dsonar.sources=src/main/java \
+          -Dsonar.sourceEncoding=UTF-8 \
+          -Dsonar.java.binaries=build
             
