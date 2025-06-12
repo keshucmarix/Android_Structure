@@ -48,7 +48,7 @@ class LoginFragment : BaseFragment<AuthFragmentLoginBinding>(), View.OnClickList
 
 
     override fun onViewCreated() {
-        // appSession.bearerToken = AppSession.staticToken
+        // appSession.bearerToken = AppSession.staticToken. test
         setClickListener()
         // apiCallSignUp()
         //  apiCallGetStoreTrending()
