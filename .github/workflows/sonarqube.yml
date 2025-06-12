@@ -1,31 +1,48 @@
-name: SonarQube Analysis
+name: SonarQube Report
 
 on:
-  push:
+  pull_request:
     branches:
-      - '**'  # Triggers on all branches
+      - '**'  # Trigger on all PRs targeting any branch
 
 jobs:
-  sonarqube:
+  sonar:
     name: SonarQube Analysis
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source code
-        uses: actions/checkout@v3
-
-      - name: Set up JDK
-        uses: actions/setup-java@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'  # Use your project's Java version
+          fetch-depth: 0  # Required for Sonar PR analysis
 
-      - name: Grant execute permission to Gradlew
-        run: chmod +x ./gradlew
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'zulu'
 
-      - name: Run SonarQube analysis
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle
+
+      - name: SonarQube Report Only
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: |
-          ./gradlew sonarqube 
-            
+          ./gradlew sonarqube \
+            -Dsonar.projectKey=Android-Architecture \
+            -Dsonar.projectName=Android-Architecture \
+            -Dsonar.host.url=$SONAR_HOST_URL \
+            -Dsonar.login=$SONAR_TOKEN
