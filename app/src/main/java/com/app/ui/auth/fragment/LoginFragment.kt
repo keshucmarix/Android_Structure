@@ -71,7 +71,7 @@ class LoginFragment : BaseFragment<AuthFragmentLoginBinding>(), View.OnClickList
 
     private fun setClickListener() = with(binding) {
         buttonLogin.setOnClickListener(this@LoginFragment)
-        textViewSignUp.setOnClickListener(this@LoginFragment)
+        textViewSignUp.setOnClickListener(this@LoginFragment)//tets
     }
 
     override fun onBackActionPerform(): Boolean {
