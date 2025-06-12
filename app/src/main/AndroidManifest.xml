@@ -37,18 +37,18 @@
             android:name="com.google.android.gms.tagmanager.TagManager"
             android:resource="@raw/gtm_default_container" />
         <!--  Add preview activity. -->
-        <activity
-            android:name="com.google.android.gms.tagmanager.PreviewActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:noHistory="true">  <!-- optional, removes the previewActivity from the activity stack. -->
-            <intent-filter>
-                <data android:scheme="tagmanager.c.com.app" />
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE"/>
-            </intent-filter>
-        </activity>
+<!--        <activity-->
+<!--            android:name="com.google.android.gms.tagmanager.PreviewActivity"-->
+<!--            android:exported="true"-->
+<!--            android:label="@string/app_name"-->
+<!--            android:noHistory="true">  &lt;!&ndash; optional, removes the previewActivity from the activity stack. &ndash;&gt;-->
+<!--            <intent-filter>-->
+<!--                <data android:scheme="tagmanager.c.com.app" />-->
+<!--                <action android:name="android.intent.action.VIEW" />-->
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--                <category android:name="android.intent.category.BROWSABLE"/>-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
     </application>
 
 </manifest>
