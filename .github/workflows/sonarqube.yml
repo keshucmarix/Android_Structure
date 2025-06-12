@@ -44,7 +44,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: ./gradlew sonar \
-             -Dsonar.projectKey=Android-Architecture \
+             -Dsonar.projectKey='Android-Architecture' \
            -Dsonar.projectName='Android-Architecture' \
            -Dsonar.host.url=http://203.109.113.153:9000 \
            -Dsonar.token=sqp_5fdd6887be37a7fbc3ed677377a64e65fa85576b
