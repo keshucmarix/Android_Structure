@@ -100,7 +100,7 @@ android {
         properties {
             property("sonar.projectKey", "Android-Architecture")
             property("sonar.projectName", "Android-Architecture")
-            property("sonar.host.url", "http://203.109.113.153:9000")
+            property("sonar.host.url", "http://203.109.113.163:9000")
             property("sonar.login", System.getenv("SONAR_TOKEN"))
             property("sonar.sources", listOf("src/main/java")) // ✅ Must be a list, not a String!
             property("sonar.sourceEncoding", "UTF-8")
