@@ -1,12 +1,12 @@
 name: Android Build and Firebase Upload
 
 on:
-  pull_request:       # ✅ Triggers on ALL pull requests
+  pull_request:
     branches:
-      - '**'          # Targets any branch
+      - '**'
   push:
     branches:
-      - main          # Optional: Also run on push to main
+      - main
 
 jobs:
   build:
@@ -29,10 +29,18 @@ jobs:
       - name: Build APK
         run: ./gradlew assembleDebug
 
+      - name: Generate Release Notes with Branch Name
+        run: |
+          BRANCH_NAME="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+          echo "Build from branch: $BRANCH_NAME" > release-notes.txt
+          echo "Commit: $GITHUB_SHA" >> release-notes.txt
+          echo "Triggered by: $GITHUB_ACTOR" >> release-notes.txt
+
       - name: Upload to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{ secrets.FIREBASE_APP_ID }}
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIALS }}
-          groups: internal-testers  # change to your Firebase tester group
+          groups: internal-testers
           file: app/build/outputs/apk/debug/app-debug.apk
+          releaseNotesFile: release-notes.txt
