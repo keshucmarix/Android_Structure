@@ -22,8 +22,13 @@ android {
         applicationId = "com.app"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = if (project.hasProperty("buildNumber")) {
+            project.property("buildNumber").toString().toIntOrNull() ?: 1
+        } else {
+            1
+        }
+        versionName = "1.0-pr${if (project.hasProperty("buildNumber")) project.property("buildNumber") else "0"}"
+
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
