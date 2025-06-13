@@ -57,7 +57,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const requiredUser = 'RajCmarix';
-            const { data: reviews } = await github.pulls.listReviews({
+            const { data: reviews } = await github.rest.pulls.listReviews({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.payload.pull_request.number,
@@ -68,7 +68,7 @@ jobs:
               .map(r => r.user.login);
 
             if (!approvedBy.includes(requiredUser)) {
-              core.setFailed(`❌ PR must be approved by @${requiredUser}. Approved by: ${approvedBy.join(', ')}`);
+              core.setFailed(`❌ PR must be approved by @${requiredUser}. Approved by: ${approvedBy.join(', ') || 'no one'}`);
             } else {
               console.log(`✅ Approved by @${requiredUser}`);
             }
