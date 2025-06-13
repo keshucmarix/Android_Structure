@@ -14,12 +14,14 @@ jobs:
       - name: Debug Message
         run: echo "✅ This workflow is triggered correctly"
 
-      - name: Check if PR is approved by RajCamrix
+      - name: Check if PR is approved by TL or Sr Developer
+        env:
+          REVIEWER_NAME: ${{ secrets.REVIEWER_NAME }}  # e.g., RajCamrix,TrushangKCMX
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const requiredUser = 'RajCamrix';
+            const requiredUsers = process.env.REVIEWER_NAME.split(',').map(s => s.trim());
             const { data: reviews } = await github.rest.pulls.listReviews({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -30,8 +32,11 @@ jobs:
               .filter(r => r.state === 'APPROVED')
               .map(r => r.user.login);
 
-            if (!approvedBy.includes(requiredUser)) {
-              core.setFailed(`❌ PR must be approved by @${requiredUser}. Approved by: ${approvedBy.join(', ') || 'no one'}`);
+            const isApproved = requiredUsers.some(user => approvedBy.includes(user));
+
+            if (!isApproved) {
+              core.setFailed(`❌ PR must be approved by one of: ${requiredUsers.join(', ')}. Approved by: ${approvedBy.join(', ') || 'no one'}`);
             } else {
-              console.log(`✅ Approved by @${requiredUser}`);
+              console.log(`✅ Approved by at least one required user.`);
             }
+        

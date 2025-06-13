@@ -16,7 +16,7 @@ data class StoreRequest(
     @SerializedName("merchantId")
     var merchantId: Int? = null,
     @SerializedName("sortBy")
-    var sortBy: String? = null,
+    var sortBy: String? = null,//test
     @SerializedName("BussinessId")
     var BussinessId: String? = "123456",
 )
