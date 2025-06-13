@@ -66,3 +66,26 @@ jobs:
         run: |
           echo "❌ Merge blocked: More than 30 major issues found in SonarQube."
           exit 1
+
+      - name: Check if PR approved by specific user
+        uses: actions/github-script@v6
+        id: reviewer_check
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const requiredUser = 'RajCamrix';
+            const { data: reviews } = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+
+            const approvedBy = reviews
+              .filter(r => r.state === 'APPROVED')
+              .map(r => r.user.login);
+
+            if (!approvedBy.includes(requiredUser)) {
+              core.setFailed(`❌ PR must be approved by @${requiredUser}. Approved by: ${approvedBy.join(', ') || 'no one'}`);
+            } else {
+              console.log(`✅ Approved by @${requiredUser}`);
+            }
