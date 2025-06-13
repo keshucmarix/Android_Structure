@@ -2,13 +2,18 @@ name: Reviewer Approval Check
 
 on:
   pull_request:
-    types: [submitted, edited, reopened, synchronize]
+    branches:
+      - '**'  # Trigger on all PRs targeting any branch
 
 jobs:
   approval:
     name: Reviewer
     runs-on: ubuntu-latest
+
     steps:
+      - name: Debug Message
+        run: echo "✅ This workflow is triggered correctly"
+
       - name: Check if PR is approved by RajCamrix
         uses: actions/github-script@v6
         with:
