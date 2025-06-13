@@ -16,12 +16,12 @@ jobs:
 
       - name: Check if PR is approved by TL or Sr Developer
         env:
-          REVIEWER_NAMES: ${{ secrets.REVIEWER_NAMES }}  # e.g., RajCamrix,TrushangKCMX
+          REVIEWER_NAME: ${{ secrets.REVIEWER_NAME }}  # e.g., RajCamrix,TrushangKCMX
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const requiredUsers = process.env.REVIEWER_NAMES.split(',').map(s => s.trim());
+            const requiredUsers = process.env.REVIEWER_NAME.split(',').map(s => s.trim());
             const { data: reviews } = await github.rest.pulls.listReviews({
               owner: context.repo.owner,
               repo: context.repo.repo,
