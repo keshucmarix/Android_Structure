@@ -29,11 +29,12 @@ jobs:
       - name: Build APK
         run: ./gradlew assembleDebug
 
-      - name: Generate Release Notes with Run Number
+      - name: Generate Release Notes with Branch Name
         run: |
-          echo "Version: Build #${{ github.run_number }}" > release-notes.txt
-          echo "PR: ${{ github.event.pull_request.html_url || github.ref }}" >> release-notes.txt
-          echo "Commit: ${{ github.sha }}" >> release-notes.txt
+          BRANCH_NAME="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+          echo "Build from branch: $BRANCH_NAME" > release-notes.txt
+          echo "Commit: $GITHUB_SHA" >> release-notes.txt
+          echo "Triggered by: $GITHUB_ACTOR" >> release-notes.txt
 
       - name: Upload to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
