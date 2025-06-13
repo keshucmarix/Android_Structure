@@ -40,10 +40,11 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
         run: |
           ./gradlew sonarqube \
-            -Dsonar.projectKey=Android-Architecture \
-            -Dsonar.projectName=Android-Architecture \
+            -Dsonar.projectKey=$PROJECT_NAME \
+            -Dsonar.projectName=$PROJECT_NAME \
             -Dsonar.host.url=$SONAR_HOST_URL \
             -Dsonar.login=$SONAR_TOKEN
 
@@ -55,8 +56,9 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
         run: |
-          response=$(curl -s -u $SONAR_TOKEN: "$SONAR_HOST_URL/api/issues/search?componentKeys=Android-Architecture&severities=MAJOR")
+          response=$(curl -s -u $SONAR_TOKEN: "$SONAR_HOST_URL/api/issues/search?componentKeys=$PROJECT_NAME&severities=MAJOR")
           count=$(echo "$response" | jq '.total')
           echo "Major issues found: $count"
           echo "major_issues=$count" >> $GITHUB_OUTPUT

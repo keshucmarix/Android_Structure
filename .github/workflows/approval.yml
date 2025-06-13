@@ -14,12 +14,14 @@ jobs:
       - name: Debug Message
         run: echo "✅ This workflow is triggered correctly"
 
-      - name: Check if PR is approved by RajCamrix
+      - name: Check if PR is approved by TL or Sr Developer
+        env:
+          REVIEWER_NAME: ${{ secrets.REVIEWER_NAME }}
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const requiredUser = 'RajCamrix';
+            const requiredUser = $REVIEWER_NAME;
             const { data: reviews } = await github.rest.pulls.listReviews({
               owner: context.repo.owner,
               repo: context.repo.repo,
