@@ -26,8 +26,17 @@ jobs:
       - name: Set up Gradle
         uses: gradle/gradle-build-action@v3
 
-      - name: Build APK
-        run: ./gradlew assembleDebug
+      - name: Extract buildNumber from PR or Branch
+        id: vars
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "buildNumber=${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "buildNumber=1" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build APK with buildNumber
+        run: ./gradlew assembleDebug -PbuildNumber=${{ steps.vars.outputs.buildNumber }}
 
       - name: Generate Release Notes with Branch Name
         run: |
@@ -35,6 +44,7 @@ jobs:
           echo "Build from branch: $BRANCH_NAME" > release-notes.txt
           echo "Commit: $GITHUB_SHA" >> release-notes.txt
           echo "Triggered by: $GITHUB_ACTOR" >> release-notes.txt
+          echo "Build Number: ${{ steps.vars.outputs.buildNumber }}" >> release-notes.txt
 
       - name: Upload to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
