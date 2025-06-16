@@ -13,7 +13,7 @@ class BaseRecyclerView<MODEL, Binding : ViewBinding>(
     itemBinding: (LayoutInflater, ViewGroup, Boolean) -> Binding,
     bind: (Binding, MODEL, Int) -> Unit
 ) : GenericAdapter<MODEL, Binding>(itemBinding, bind) {
-
+//test
     fun noDataFound(message: String) {
         val inflater: LayoutInflater = context.layoutInflater
         val view: View = inflater.inflate(com.app.R.layout.no_data_found, null)
