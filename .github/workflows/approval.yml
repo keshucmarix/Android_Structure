@@ -1,9 +1,10 @@
 name: Reviewer Approval Check
 
 on:
-  pull_request:
-    branches:
-      - '**'  # Trigger on all PRs targeting any branch
+  workflow_run:
+    workflows: ["SonarQube Report"]  # 👈 must match the name in sonar.yml
+    types:
+      - completed
 
 jobs:
   approval:

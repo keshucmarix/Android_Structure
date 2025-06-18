@@ -106,7 +106,7 @@ android {
             property("sonar.projectKey", "Android-Architecture")
             property("sonar.projectName", "Android-Architecture")
             property("sonar.host.url", "http://203.109.113.163:9000")
-            property("sonar.login", "sqp_c53e961c71721df432be80d996d6fb56702b8adb")
+            property("sonar.login", "sqp_7c1904f9f19c4f13768ffc96494e1bd23279f098")
             property("sonar.sources", listOf("src/main/java")) // ✅ Must be a list, not a String!
             property("sonar.sourceEncoding", "UTF-8")
             property("sonar.java.binaries", listOf("build")) // Optional but helps with analysis
