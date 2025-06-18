@@ -1,9 +1,6 @@
 name: Android Build and Firebase Upload
 
 on:
-  pull_request:
-    branches:
-      - '**'
   push:
     branches:
       - main
