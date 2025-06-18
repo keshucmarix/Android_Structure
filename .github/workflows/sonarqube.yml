@@ -71,29 +71,47 @@ jobs:
           echo "❌ Merge blocked: More than 150 major issues found."
           exit 1
 
+  approval:
+    name: Reviewer Approval Check
+    runs-on: ubuntu-latest
+    needs: sonar
+    if: needs.sonar.result == 'success'
+
+    steps:
       - name: Check PR approval
         env:
           REVIEWER_NAME: ${{ secrets.REVIEWER_NAME }}
+          GITHUB_SHA: ${{ github.sha }}
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const requiredUsers = process.env.REVIEWER_NAME.split(',').map(s => s.trim());
-            const prNumber = context.payload.pull_request.number;
-            
+
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open",
+            });
+
+            const pr = prs.find(pr => pr.head.sha === process.env.GITHUB_SHA);
+            if (!pr) {
+              core.setFailed("❌ No PR found for this commit.");
+              return;
+            }
+
             const { data: reviews } = await github.rest.pulls.listReviews({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: prNumber,
+              pull_number: pr.number,
             });
-            
+
             const approvedBy = reviews.filter(r => r.state === 'APPROVED').map(r => r.user.login);
             const isApproved = requiredUsers.some(user => approvedBy.includes(user));
-            
+
             if (!isApproved) {
               core.setFailed(`❌ PR must be approved by one of: ${requiredUsers.join(', ')}. Approved by: ${approvedBy.join(', ') || 'no one'}`);
             } else {
               console.log(`✅ Approved by at least one required user.`);
             }
-  
   
