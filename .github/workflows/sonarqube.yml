@@ -9,8 +9,6 @@ jobs:
   sonar:
     name: SonarQube Analysis
     runs-on: ubuntu-latest
-    outputs:
-      major_issues: ${{ steps.sonar_check.outputs.major_issues }}
 
     steps:
       - name: Checkout code
@@ -50,26 +48,11 @@ jobs:
             -Dsonar.host.url=$SONAR_HOST_URL \
             -Dsonar.login=$SONAR_TOKEN
 
-      - name: Install jq
-        run: sudo apt-get install -y jq
-
-      - name: Fetch number of major issues
-        id: sonar_check
+      - name: Check SonarQube Quality Gate
+        id: qualitygate
+        uses: SonarSource/sonarqube-quality-gate-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-          PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
-        run: |
-          response=$(curl -s -u $SONAR_TOKEN: "$SONAR_HOST_URL/api/issues/search?componentKeys=$PROJECT_NAME&severities=MAJOR")
-          count=$(echo "$response" | jq '.total')
-          echo "Major issues found: $count"
-          echo "major_issues=$count" >> $GITHUB_OUTPUT
-
-      - name: Fail if too many major issues
-        if: steps.sonar_check.outputs.major_issues > 150
-        run: |
-          echo "❌ Merge blocked: More than 150 major issues found."
-          exit 1
 
   approval:
     name: Reviewer Approval Check
