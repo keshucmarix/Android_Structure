@@ -34,9 +34,14 @@ jobs:
       - name: Cache Gradle packages
         uses: actions/cache@v4
         with:
-          path: ~/.gradle/caches
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: ${{ runner.os }}-gradle
+
+      - name: Grant execute permission to Gradle
+        run: chmod +x ./gradlew
 
       - name: Build the project
         run: ./gradlew clean assembleDebug
@@ -51,7 +56,7 @@ jobs:
           echo "sonar.projectName=$PROJECT_NAME" >> sonar-project.properties
           echo "sonar.host.url=$SONAR_HOST_URL" >> sonar-project.properties
           echo "sonar.token=$SONAR_TOKEN" >> sonar-project.properties
-          echo "sonar.sources=app/src/main/kotlin" >> sonar-project.properties
+          echo "sonar.sources=app/src/main" >> sonar-project.properties
           echo "sonar.java.binaries=app/build/intermediates/javac/debug/classes" >> sonar-project.properties
           echo "sonar.sourceEncoding=UTF-8" >> sonar-project.properties
 
@@ -101,19 +106,4 @@ jobs:
             const prNumber = context.payload.pull_request.number;
 
             const { data: reviews } = await github.rest.pulls.listReviews({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: prNumber,
-            });
-
-            const approvedBy = reviews
-              .filter(r => r.state === 'APPROVED')
-              .map(r => r.user.login);
-
-            const isApproved = requiredUsers.some(user => approvedBy.includes(user));
-
-            if (!isApproved) {
-              core.setFailed(`❌ PR must be approved by one of: ${requiredUsers.join(', ')}. Approved by: ${approvedBy.join(', ') || 'no one'}`);
-            } else {
-              console.log(`✅ Approved by at least one required user: ${approvedBy.join(', ')}`);
-            }
+              owner
