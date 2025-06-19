@@ -47,7 +47,8 @@ jobs:
             -Dsonar.projectName=$PROJECT_NAME \
             -Dsonar.host.url=$SONAR_HOST_URL \
             -Dsonar.login=$SONAR_TOKEN
-
+            -Dsonar.scanner.dumpToFile=true
+            
       - name: Check SonarQube Quality Gate
         id: qualitygate
         uses: SonarSource/sonarqube-quality-gate-action@master
