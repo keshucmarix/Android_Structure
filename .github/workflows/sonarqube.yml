@@ -90,6 +90,21 @@ jobs:
           script: |
             const requiredUsers = process.env.REVIEWER_NAME.split(',').map(s => s.trim());
             const prNumber = context.payload.pull_request.number;
-
+            
             const { data: reviews } = await github.rest.pulls.listReviews({
-              owner
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber,
+            });
+            
+            const approvedBy = reviews
+              .filter(r => r.state === 'APPROVED')
+              .map(r => r.user.login);
+            
+            const isApproved = requiredUsers.some(user => approvedBy.includes(user));
+            
+            if (!isApproved) {
+              core.setFailed(`❌ PR must be approved by one of: ${requiredUsers.join(', ')}. Approved by: ${approvedBy.join(', ') || 'no one'}`);
+            } else {
+              console.log(`✅ Approved by at least one required user: ${approvedBy.join(', ')}`);
+            }
